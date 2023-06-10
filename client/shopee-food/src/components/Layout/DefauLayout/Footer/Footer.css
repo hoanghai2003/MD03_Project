@@ -1,0 +1,103 @@
+.footer{
+    width:100%;
+    height: 100%;
+}
+.footer-container{
+    display: flex;
+    justify-content: space-between;
+    width: 971px;
+}
+.footer .title-block {
+    font-weight: 600;
+    color: #252525;
+    margin-bottom: 20px;
+    font-size: 14px;
+    margin-left: 0;
+}
+
+.footer .menu-item .color-a{
+    color: #08f;
+}
+
+.footer .menu-footer {
+    line-height: 20px;
+    margin-top: 0;
+    padding-left: 0;
+    list-style: none;
+    font-size: 11px;
+    margin-right: -27px;
+}
+.tag-footer{
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+}
+
+.tag-footer .apps .img-footer{
+    width: 100px;
+    height: 31px;
+    display: grid;
+    margin-bottom: 25px;
+
+}
+
+.log-footer{
+   
+    width: 120px;
+    float: left;
+    color: #959595;
+    text-align: center;
+
+}
+
+.log .logo-shopee{
+    max-width: 90px;
+}
+
+.footer .social-ico {
+    margin-top: 20px;
+    padding-left: 0;
+}
+
+.footer .social-ico li {
+    display: inline-block;
+    padding: 0 8px;
+}
+
+.footer .social-ico .ico {
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+    line-height: 30px;
+    display: inline-block;
+    background-color: #959595;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: all .2s linear;
+    -webkit-transition: all .2s linear;
+}
+
+.footer .social-ico .facebook:hover {
+    background-color: #0288d1;
+}
+.footer .social-ico .instagram:hover {
+    background-color: #ba30a7;
+}
+
+.footer .blog-right{
+    text-align: right;
+    float: right;
+    font-size: 11px;
+}
+
+.footer .img-cofim{
+    width: 155px;
+    height: 55px;
+    margin-top: 5px;
+}
+
+.footer .blog-right p {
+
+    margin-bottom: 8px;
+}

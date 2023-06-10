@@ -1,0 +1,233 @@
+.container-login{
+    margin: 0 auto;
+    width: 960px;
+}
+
+.now-login {
+    width: 540px;
+    margin: auto;
+    clear: both;
+    padding: 30px 0;
+}
+
+.now-login .content {
+    padding: 30px;
+    background-color: #fff;
+    width: 100%;
+}
+/*  */
+.now-login .title {
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 17px;
+}
+
+.now-login .login-via {
+    margin-bottom: 35px;
+}
+
+.now-login .login-via .item.phone {
+    background-color: #329900;
+}
+.now-login .login-via .fa-mobile-alt {
+    color: #6cc942;
+}
+
+.now-login .login-via .item.fb {
+    background-color: #187caa;
+}
+
+.face{
+    color: #187caa;
+
+}
+
+.now-login .login-via .item.plus {
+    background-color: #ff5252;
+}
+
+.fa-google-plus-g:before {
+    color: #ff5252;
+}
+
+.now-login .login-via .item {
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+    position: relative;
+    margin-bottom: 10px;
+    padding: 7px 0;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.now-login .login-via .fas {
+    position: absolute;
+    top: 5px;
+    left: 7px;
+    background-color: #fff;
+    border-radius: 50%;
+    font-size: 15px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+}
+
+
+.now-login .login-via .fab, .now-login .login-via .fas {
+    position: absolute;
+    top: 2px;
+    left: 7px;
+    background-color: #fff;
+    border-radius: 50%;
+    font-size: 15px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+}
+
+
+.now-login .text {
+    font-size: 10px;
+    color: #464646;
+    text-align: center;
+}
+
+.now-login .field-group {
+    border: 1px solid #959595;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.now-login .form-login-input .input-group {
+    border-bottom: 1px solid #959595;
+    position: relative;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.input-group {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    width: 100%;
+}
+
+.now-login .form-login-input input {
+    border: 0;
+    border-radius: 0;
+    width: 100%;
+    padding: 9px 10px 9px 33px;
+}
+
+.now-login .form-login-input .far{
+    color: #9fa9aa;
+    position: absolute;
+    top: 9px;
+    left: 8px;
+}
+
+.now-login .form-login-input .fas {
+    color: #9fa9aa;
+    position: absolute;
+    top: 9px;
+    left: 8px;
+}
+
+
+.form-group {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.float-left {
+    float: left!important;
+}
+
+.float-right {
+    float: right!important;
+    position: absolute;
+    right: 393px;
+}
+
+.now-login .form-login-input input[type=checkbox] {
+    width: inherit;
+    margin-top: 10px;
+}
+
+.now-login .form-login-input input[type=checkbox]+label {
+    vertical-align: text-bottom;
+    margin-bottom: 1px;
+    padding-left: 5px;
+}
+
+.clearfix:after {
+    display: block;
+    clear: both;
+    content: "";
+}
+
+label {
+    display: inline-block;
+}
+
+.btn {
+    color: #fff;
+    background-color: #0288d1;
+    display: inline-block;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid #0288d1;
+    border-radius: 6px;
+    padding: 0.23rem 0.6rem;
+    font-size: 10px;
+    line-height: 1.5;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+.now-login .btn-submit {
+    margin-bottom: 15px;
+    padding: 6px 0;
+    text-transform: uppercase;
+}
+.now-login .login-mess-policy {
+    text-align: center;
+    color: #707070;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.login-link{
+    color: #0495ba;
+    border-bottom: 2px solid;
+    text-decoration: none !important;
+}
+
+.error-message{
+    color: #dc362e;
+    padding-left: 2px;
+}
+
+.err{
+    margin-left: -2px;
+}

@@ -1,0 +1,141 @@
+.displ-proadm{
+    display: flex;
+}
+
+.img-prodct{
+    width: 70px;
+    height: 60px;
+}
+
+.td-prfood{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #999;
+    width: 325px;
+  
+}
+
+.dipl-cc{
+    display: flex;
+}
+
+
+.create-btn{
+    display: flex;
+    align-items: center;
+    width: 90px;
+    height: 35px;
+    padding-left: 15px;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    background-color: #ed4f31;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 700;
+}
+.create-btn:hover{
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)),#ee4d2d;
+}
+.onl-pro {
+    padding: 0px 4px 1px 4px;
+    margin-right: 4px;
+    border-radius: 50%;
+    color: rgb(35, 152, 57);
+    background-color: rgb(35, 152, 57);
+}
+.off-pro {
+    padding: 0px 4px 1px 4px;
+    margin-right: 4px;
+    border-radius: 50%;
+    color: rgb(211, 211, 211);
+    background-color: rgb(211, 211, 211);
+}
+.food-prdtc{
+    display: flex;
+    background-color: #c6ccd1;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tt-onl-prd{
+    font-size: 12px;
+    color: rgb(35, 152, 57);
+}
+.tt-off-prd{
+    font-size: 12px;
+    color: rgb(188, 184, 184);
+}
+/*  */
+
+.create-food{
+    width: 985px;
+    background-color: #fff;
+    height: auto;
+    margin: 30px 30px;
+}
+
+.bgr-wh{
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.divinput{
+    display: flex;
+    justify-content: center;
+    padding: 25px 0 0;
+    align-items: center;
+}
+
+.name-create{
+    font-size: 14px;
+    margin-right: 25px;
+    width: 150px;
+    font-weight: 600;
+}
+
+.ipt-create .ipt-crt{
+    width: 500px;
+    height: 30px;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+    border-radius: 3px;
+    border: 1px solid #999;
+}
+
+.ipt-creat .ipt-cr{
+    width: 500px;
+    height: 30px;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+    border-radius: 3px;
+}
+
+.upload-crt{
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 155px;
+
+}
+
+.btnupload{
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 3px;
+    border: none;
+    color: #fff;
+    background-color: #ed4f31;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.btnupload:hover{
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)),#ee4d2d;
+}

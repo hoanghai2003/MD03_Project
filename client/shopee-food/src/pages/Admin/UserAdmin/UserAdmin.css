@@ -1,0 +1,147 @@
+.displ-ctent{
+    display: flex;
+    align-items: flex-start;
+}
+.conten-ctn{
+    width: 102%;
+}
+
+.tag-name{
+    padding: 20px 30px;
+    display: flex;
+    background-color: #c6ccd1;
+}
+
+
+.tag-usr{
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 -1px 2px 0 rgba(0,0,0,.1), 0 4px 20px 0 rgba(0,0,0,.19);
+    border-radius: 3px;
+    
+}
+
+.icon-tag{
+    font-size: 15px;
+    color: #dcb8ce;
+}
+
+.fa-user-tag{
+    margin-top: 15px;
+}
+
+.tag-name-usr{
+    margin-left: 15px;
+}
+
+.name-tag{
+    font-size: 17px;
+    color: #706868;
+}
+
+.application{
+    margin-left: 5px;
+    font-size: 12px;
+    color: #ecf2f8;
+}
+
+.conten-ctn {
+    width: 100%;
+}
+
+.tbl-user{
+    height: 442px;
+}
+
+.table-user {
+    padding: 20px 30px;
+    background: #dee2e7;
+    height: auto;
+}
+.srch-usr{
+    padding: flex;
+    margin-bottom: 10px;
+}
+.search-user{
+    background-color: #fff;
+}
+
+.color-nn{
+    display: flex;
+}
+
+.wh-ipt{
+    width: 220px;
+    height: 40px;
+    border: 1px solid #999;
+    border-radius: 5px 0px 0px 5px;
+    padding-left: 10px;
+    font-size: 12px;
+}
+
+.color-nn{
+    padding: 10px 25px;
+    border-bottom: 1px solid #c2bfbf;
+}
+
+.btn-usradm{
+    border-radius: 0px 5px 5px 0px;
+    width: 78px;
+   background-color: #ed4f31;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+
+}
+
+.fa-magnifying-glass{
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+
+
+.table-usr {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table-usr th,
+  .table-usr td {
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #999;
+    width: 295px;
+  }
+
+  .detail{
+    background-color: transparent;
+    border: none;
+    color: #591ddd;
+    cursor: pointer;
+    font-size: 15px;
+    padding-right: 10px;
+  }
+
+  .delete-usr {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.del{
+      color: #dc362e;
+        font-size: 15px;
+  }
+
+  .row1 {
+    background-color: #f7f7f7; /* Màu nền cho hàng 1 */
+  }
+
+  .row2 {
+    background-color: #fff; /* Màu nền cho hàng 2 */
+  }
