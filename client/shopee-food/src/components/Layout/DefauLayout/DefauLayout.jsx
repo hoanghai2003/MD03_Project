@@ -7,7 +7,7 @@ import ScrollBar from "./ScrollBar/ScrollBar";
 function DefauLayout() {
   return (
     <div className="">
-      <div className="container">
+      <div className="container" style={{ width: "1263px" }}>
         <Sidebar />
       </div>
     </div>

@@ -21,7 +21,6 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // console.log("11111111");
     if (Email === "" || PassWord === "") {
       notification.error({
         message: "Thất bại",
@@ -29,6 +28,7 @@ function Login() {
       });
       return;
     }
+    console.log("hihihhihi");
     await axios
       .post("http://localhost:3003/api/v1/users/login", UserLogin)
       .then((res) => {

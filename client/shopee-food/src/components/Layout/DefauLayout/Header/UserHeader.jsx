@@ -1,13 +1,16 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import assImages from "../../../../asset/images/images";
+import axios from "axios";
+import { notification } from "antd";
 
 function UserHeader() {
   const navigate = useNavigate();
   const [openUser, setOpenUser] = useState(false);
   const ref = useRef(null);
-
+  const [countGrub, setCountGrub] = useState([]);
   const UserLocal = JSON.parse(localStorage.getItem("user"));
+  const userId = UserLocal?.data.users_id;
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -24,11 +27,30 @@ function UserHeader() {
   const handleDeleteLocal = () => {
     localStorage.removeItem("user");
     navigate("/");
+    notification.success({
+      message: "Đăng xuất thành công",
+    });
   };
 
   const handleOpen = () => {
     setOpenUser(!openUser);
   };
+
+  const loadData = () => {
+    axios
+      .get(`http://localhost:3003/api/v1/cart/carts/${userId}`)
+      .then((res) => setCountGrub(res.data.data.length))
+      .catch((err) => console.log(err));
+  };
+
+  setTimeout(() => {
+    loadData();
+  }, 100);
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
   return (
     <>
       {UserLocal != null ? (
@@ -49,6 +71,7 @@ function UserHeader() {
           </div>
           {openUser && (
             <div className="dropdown-menuu showw">
+              {/*  */}
               <a href="/grub">
                 <div className="dropdown-itemm">
                   <div>
@@ -57,7 +80,18 @@ function UserHeader() {
                     </span>
                     <span className="text-user ">Giỏ hàng</span>
                   </div>
-                  <div className="sl-count"></div>
+                  <div className="sl-count">({countGrub})</div>
+                </div>
+              </a>
+              {/*  */}
+              <a href="/informaton">
+                <div className="dropdown-itemm">
+                  <div className="wh-mg">
+                    <span className="icon-user history moneycheck">
+                      <i className="fa-solid fa-money-check"></i>
+                    </span>
+                    <span className="text-user ">Thông tin đơn hàng</span>
+                  </div>
                 </div>
               </a>
               <a href="">

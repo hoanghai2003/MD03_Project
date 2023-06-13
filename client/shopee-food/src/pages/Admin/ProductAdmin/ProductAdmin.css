@@ -139,3 +139,45 @@
 .btnupload:hover{
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)),#ee4d2d;
 }
+
+.err-create{
+    display: flex;
+    flex-direction: column;
+}
+
+.confirm-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+    transition: top 1s ease-in-out;
+  }
+  
+  .confirm-modal h3 {
+    margin-top: 0;
+  }
+  
+  .confirm-modal p {
+    margin-bottom: 20px;
+  }
+  
+  .confirm-modal button {
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .confirm-modal button:last-child {
+    background-color: #ccc;
+  }
+  

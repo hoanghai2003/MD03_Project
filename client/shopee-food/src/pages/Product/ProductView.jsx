@@ -2,12 +2,33 @@ import { NavLink, useParams } from "react-router-dom";
 import assImages from "../../asset/images/images";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { notification } from "antd";
 
 function ProductView() {
   const { id } = useParams();
-  const [product, setProduct] = useState([]);
-
+  const [product, setProduct] = useState(null);
   const UserLocal = JSON.parse(localStorage.getItem("user"));
+  console.log("aaaa", product);
+
+  const fomatDate = (date) => {
+    let dateTime = new Date(date);
+    let day = dateTime.getDay();
+    if (day > 0 && day < 10) {
+      day = `0${day}`;
+    }
+    let month = dateTime.getMonth() + 1;
+    if (month > 0 && month < 10) {
+      month = `0${month}`;
+    }
+    let year = dateTime.getFullYear();
+
+    return `${year}-${month}-${day}`;
+  };
+
+  // Tạo số ngẫu nhiên từ 5000 đến 15000
+  const min = 5000;
+  const max = 15000;
+  const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
 
   // Goi API lay thong tin mot product theo id
   useEffect(() => {
@@ -16,6 +37,40 @@ function ProductView() {
       .then((res) => setProduct(res.data.data))
       .catch((err) => console.log(err));
   }, []);
+
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(value);
+  };
+
+  const newCart = {
+    product_id: +id,
+    quantity: 1,
+    users_id: UserLocal.data.users_id,
+    created_date: fomatDate(new Date()),
+    price_ship: randomNumber,
+  };
+
+  // Thêm sản phẩm vào giỏ hàng
+  const handlePust = () => {
+    axios
+      .post("http://localhost:3003/api/v1/cart/post", newCart)
+      .then((res) => {
+        if (res.data.status === 200) {
+          notification.success({
+            message: res.data.message,
+          });
+        } else if (res.data.status === 201) {
+          notification.success({
+            message: res.data.message,
+          });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <>
       <div className="now-detail-restaurant clearfix">
@@ -106,17 +161,17 @@ function ProductView() {
               </div>
               <div className="dpl-fl">
                 <div className="cost-restaurant">
-                  <i className="fas fa-dollar-sign" />
-                  {pr.price_product}
+                  {formatCurrency(pr.price_product)}
                 </div>
                 {UserLocal ? (
                   <div className="cost-restaurantt">
-                    {/* aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa */}
                     <NavLink to="/confim">
                       <button className="btn-add">Đặt ngay</button>
                     </NavLink>
-                    <NavLink to="/grub">
-                      <button className="btn-add add">Thêm vào giỏ hàng</button>
+                    <NavLink>
+                      <button className="btn-add add" onClick={handlePust}>
+                        Thêm vào giỏ hàng
+                      </button>
                     </NavLink>
                   </div>
                 ) : (

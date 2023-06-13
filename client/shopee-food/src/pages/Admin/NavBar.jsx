@@ -33,7 +33,7 @@ function NavBar() {
           </NavLink>
 
           <NavLink to={"/categori"}>
-            <li className="li-nav">Category</li>
+            <li className="li-nav">Options</li>
           </NavLink>
         </ul>
         {/* // )} */}

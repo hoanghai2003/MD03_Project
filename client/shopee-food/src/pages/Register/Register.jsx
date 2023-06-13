@@ -5,7 +5,7 @@ import axios from "axios";
 import { notification } from "antd";
 
 import "./Register.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -47,7 +47,7 @@ function Login() {
     await axios
       .post("http://localhost:3003/api/v1/users/register", newUsers)
       .then((res) => {
-        if (res.data.status === 201) {
+        if (res.data.status === 200) {
           notification.success({
             message: "Thành công",
             description: "Đăng kí thành công",

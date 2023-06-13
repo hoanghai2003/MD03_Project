@@ -589,6 +589,17 @@ font-size: 11px;
     font-size: 11px;
 }
 
+.moneycheck{
+    font-size: 12px;
+    padding: 7px 8px;
+    color: #fff;
+    background-color: #ee4d2d;
+}
+
+.wh-mg{
+    height: 25px;
+    margin-top: 5px;
+}
 
 
 

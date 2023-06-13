@@ -73,11 +73,11 @@ function ConfimProduct() {
                 </div>
                 <div className="home-vp-btn">
                   <button className="btn-confim vp">
-                    <i class="fa-solid fa-briefcase"></i>
+                    <i className="fa-solid fa-briefcase"></i>
                     <p className="cfim">Văn Phòng</p>
                   </button>
                   <button className="btn-confim home">
-                    <i class="fa-solid fa-house"></i>
+                    <i className="fa-solid fa-house"></i>
                     <p className="cfim">Nhà riêng</p>
                   </button>
                 </div>
@@ -144,7 +144,7 @@ function ConfimProduct() {
             <div className="pttt-righ">
               <span>Chọn phương thức thanh toán</span>
               <a href="">
-                Xem tất Cả <i class="fa-solid fa-chevron-right"></i>
+                Xem tất Cả <i className="fa-solid fa-chevron-right"></i>
               </a>
             </div>
             {/*  */}

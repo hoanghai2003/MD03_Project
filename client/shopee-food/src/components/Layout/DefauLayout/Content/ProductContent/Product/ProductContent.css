@@ -104,11 +104,10 @@
 
 
 .main-right-home .now-list-restaurant .title-wrapper {
- 
     display: flex;
+    margin: 0 -10px 0px -13px;
+    align-items: center;
     justify-content: space-between;
-    margin: 0 -25px 0px -13px;
-    align-content: center;    
 }
 
 .main-right-home .now-list-restaurant .title {

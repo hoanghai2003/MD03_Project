@@ -13,6 +13,7 @@ import CategoriAdmin from "./pages/Admin/CategoriAdmin/CategoriAdmin";
 import OrderAdmin from "./pages/Admin/OrderAdmin/OrderAdmin";
 import ProductAdmin from "./pages/Admin/ProductAdmin/ProductAdmin";
 import CreateProduct from "./pages/Admin/ProductAdmin/CreateProduct";
+import InformatonProduct from "./pages/InformatonProduct/InformatonProduct";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/order" element={<OrderAdmin />} />
         <Route path="/categori" element={<CategoriAdmin />} />
         <Route path="/Create" element={<CreateProduct />} />
+        <Route path="/informaton" element={<InformatonProduct />} />
       </Routes>
     </Router>
   );

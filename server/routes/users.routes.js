@@ -34,8 +34,8 @@ users.post("/register", async (req, res) => {
           "INSERT INTO `products`.`users` (users_name, users_password, users_roles) VALUES (?, ?, ?)";
         try {
           await database.execute(query, newUser);
-          return res.status(201).json({
-            status: 201,
+          return res.status(200).json({
+            status: 200,
             message: "Thêm mới thành công.",
           });
         } catch (err) {

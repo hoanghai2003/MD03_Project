@@ -1,154 +1,157 @@
 import Header from "../../components/Layout/DefauLayout/Header/Header";
 import ScrollBar from "../../components/Layout/DefauLayout/ScrollBar/ScrollBar";
 import Footer from "../../components/Layout/DefauLayout/Footer/Footer";
-
 import "./Grub.css";
 import assImages from "../../asset/images/images";
-import GrubProduct from "./GrubProduct";
-import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import HeaderGrup from "./HeaderGrup";
+import NavGrup from "./NavGrup";
 
 function Grub() {
   const [grubProduct, setGrubProduct] = useState([]);
-  const [quantity, setQuantity] = useState(1);
 
-  // Giảm số lượng
-  const handleReduce = () => {
-    if (quantity > 0) {
-      setQuantity(quantity - 1);
+  const id = JSON.parse(localStorage.getItem("user")).data.users_id;
+
+  // Hàm xử lý sự kiện xóa một sản phẩm khỏi giỏ hàng
+  const handleDelete = async (cartId) => {
+    try {
+      await axios.delete(`http://localhost:3003/api/v1/cart/${cartId}`);
+      // Xóa thành công, cập nhật lại danh sách sản phẩm trong state
+      const updatedGrubProduct = grubProduct.filter(
+        (product) => product.cart_id !== cartId
+      );
+      setGrubProduct(updatedGrubProduct);
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  // Tăng số lượng
-  const handleIncrease = () => {
-    setQuantity(quantity + 1);
-  };
   useEffect(() => {
     axios
-      .get("http://localhost:3003/api/v1/cart")
-      .then((res) => setGrubProduct(res.data.user))
+      .get(`http://localhost:3003/api/v1/cart/users/${id}`)
+      .then((res) => setGrubProduct(res.data))
       .catch((err) => console.log(err));
   }, []);
+  const handlePlus = (index) => {
+    const newgrubProduct = [...grubProduct];
+    if (newgrubProduct[index].quantity < 10) {
+      newgrubProduct[index].quantity += 1;
+      setGrubProduct(newgrubProduct);
+    }
+  };
+  const handleMinus = (index) => {
+    const newgrubProduct = [...grubProduct];
+    if (newgrubProduct[index].quantity > 1) {
+      newgrubProduct[index].quantity -= 1;
+      setGrubProduct(newgrubProduct);
+    }
+  };
+
+  const handleChangeInput = (e, index) => {
+    const newGrubProduct = [...grubProduct];
+    const value = e.target.value;
+
+    if (value !== "") {
+      if (value.length <= 2) {
+        newGrubProduct[index].quantity = value;
+      } else {
+        // Nếu giá trị nhập quá hai chữ số, chỉ lấy hai chữ số đầu tiên
+        newGrubProduct[index].quantity = value.slice(0, 2);
+      }
+    } else {
+      newGrubProduct[index].quantity = 1;
+    }
+
+    setGrubProduct(newGrubProduct);
+  };
+
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(value);
+  };
 
   return (
     <div>
       <Header />
       <div className="block-section">
         <div className="container-grub">
-          {grubProduct.map((grubProduct) => (
-            <div className="lzd-grub">
-              <div className="grub-left">
-                <div className="check-grub">
+          <div className="lzd-grub">
+            <div className="grub-left">
+              <HeaderGrup grubProduct={grubProduct} />
+
+              <div className="hide-product">
+                <div className="hide-click">
                   <div className="check-click">
                     <input type="checkbox" />
-                    <span className="select-all">CHỌN TẤT CẢ (1 SẢN PHẨM)</span>
-                  </div>
-                  <div className="delete-check">
-                    <i className="fa-solid fa-trash-can"></i>
-                    <span className="delete">Xoá</span>
-                  </div>
-                </div>
-                <div className="hide-product">
-                  <div className="hide-click">
-                    <div className="check-click">
-                      <input type="checkbox" />
-                      <span className="sanpham">
-                        <img
-                          className="ig-sp"
-                          src={assImages.store_grub}
-                          alt=""
-                        />
-                        <p>Hoang Hai</p>
-                        <i className="fa-solid fa-chevron-right"></i>
-                      </span>
-                    </div>
-                    <div className="no"></div>
-                  </div>
-                  {/*  */}
-                  <div className="product-grub">
-                    <div className="sp-grb">
-                      <input type="checkbox" />
+                    <span className="sanpham">
                       <img
-                        className="img-grb"
-                        src={grubProduct.img_product}
+                        className="ig-sp"
+                        src={assImages.store_grub}
                         alt=""
                       />
-                      <span className="title-grb">
-                        {grubProduct.name_product}
-                      </span>
-                    </div>
-                    <span className="price">
-                      <p className="prc-grb">
-                        {" "}
-                        {quantity > 0
-                          ? grubProduct.price_product * quantity
-                          : grubProduct.price_product}
-                        đ
-                      </p>
-                      <div className="delete-pro">
-                        <i className="fa-sharp fa-regular fa-heart"></i>
-                        <i className="fa-sharp fa-solid fa-heart"></i>
-                        <i className="fa-solid fa-trash-can hire"></i>
-                      </div>
+                      <p>Hoang Hai</p>
+                      <i className="fa-solid fa-chevron-right"></i>
                     </span>
-
-                    <div className="cout-product">
-                      <button onClick={handleReduce} className="btn-grb">
-                        <i className="fa-solid fa-minus"></i>
-                      </button>
-                      <input
-                        min={0}
-                        className="ipt-grb"
-                        onChange={(e) => setQuantity(e.target.value)}
-                        value={quantity}
-                      />
-                      <button onClick={handleIncrease} className="btn-grb">
-                        <i className="fa-solid fa-plus"></i>
-                      </button>
-                    </div>
                   </div>
-                  {/*  */}
+                  <div className="no"></div>
                 </div>
-              </div>
-              <div className="grub-right">
-                <div className="right-grb">
-                  <span>Địa điểm</span>
-                </div>
-                <div className="addres-grb">
-                  <i className="fa-sharp fa-solid fa-location-dot grb-adr"></i>
-                  <p className="p-grb">Add Shipping Address</p>
-                </div>
-                <div className="tt-grtb">
-                  <span className="tt-grb">Thông tin đơn hàng</span>
-                </div>
-                <div className="count-grb">
-                  <p className="grbt-tt">Tạm tính (1 sản phẩm)</p>
-                  <span>20.000đ</span>
-                </div>
-                <div className="fee-grb">
-                  <p className="grbt-tt">Phí vận chuyển</p>
-                  <span>19.300 đ</span>
-                </div>
-                <div className="inp-right">
-                  <input
-                    type="text"
-                    placeholder="Mã giảm giá (mã chỉ áp dụng 1lần)"
-                  />
-                  <button className="ad-grb">Áp dụng</button>
-                </div>
-                <div className="fee-grb">
-                  <p>Tổng cộng</p>
-                  <span>39.300 đ</span>
-                </div>
-                <div className="bop-grbt">
-                  <NavLink to="/confim">
-                    <button className="btn-grbt">Xác nhận giỏ hàng(1)</button>
-                  </NavLink>
-                </div>
+                {/* GrubProduct */}
+                {grubProduct?.map((grup, index) => {
+                  const toltalPrice = grup.price_product * grup.quantity;
+                  return (
+                    <div className="product-grub" key={index}>
+                      <div className="sp-grb">
+                        <input type="checkbox" />
+                        <img
+                          className="img-grb"
+                          src={grup.img_product}
+                          alt=""
+                        />
+                        <span className="title-grb">{grup.name_product}</span>
+                      </div>
+                      <span className="price">
+                        <p className="prc-grb">
+                          {" "}
+                          {formatCurrency(toltalPrice)}
+                        </p>
+                        <div className="delete-pro" onClick={handleDelete}>
+                          <i className="fa-solid fa-trash-can hire"></i>
+                        </div>
+                      </span>
+
+                      <div className="cout-product">
+                        <button
+                          className="btn-grb"
+                          onClick={() => handleMinus(index)}
+                        >
+                          <i className="fa-solid fa-minus"></i>
+                        </button>
+                        <input
+                          className="ipt-grb"
+                          value={grup.quantity}
+                          onChange={(e) => {
+                            handleChangeInput(e, index);
+                          }}
+                        />
+                        <button
+                          className="btn-grb"
+                          onClick={() => handlePlus(index)}
+                        >
+                          <i className="fa-solid fa-plus"></i>
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+
+                {/* GrubProduct */}
               </div>
             </div>
-          ))}
+            <NavGrup grubProduct={grubProduct} />
+          </div>
         </div>
       </div>
 

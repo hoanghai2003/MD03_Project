@@ -4,14 +4,58 @@ import NavBar from "../NavBar";
 import "./ProductAdmin.css";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
+import Modal from "react-modal";
+import { notification } from "antd";
+
 function ProductAdmin() {
   const [productAdmin, setProductAdmin] = useState([]);
-  useEffect(() => {
-    axios
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedProductId, setSelectedProductId] = useState(null);
+
+  const loadData = async () => {
+    await axios
       .get("http://localhost:3003/api/v1/product")
       .then((res) => setProductAdmin(res.data.user))
       .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    loadData();
   }, []);
+
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(value);
+  };
+
+  const handleDelete = (id) => {
+    setSelectedProductId(id);
+    setModalOpen(true);
+  };
+
+  const confirmDelete = () => {
+    axios
+      .delete(`http://localhost:3003/api/v1/product/${selectedProductId}`)
+      .then((res) => {
+        if (res.data.status === 200) {
+          // Xóa sản phẩm thành công, cập nhật danh sách sản phẩm
+          setModalOpen(false);
+          setSelectedProductId(null);
+          notification.success({
+            message: res.data.message,
+          });
+          loadData();
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setSelectedProductId(null);
+  };
 
   return (
     <div>
@@ -90,9 +134,10 @@ function ProductAdmin() {
                       <td>{adminpro.address_product}</td>
                       <td>{adminpro.city}</td>
                       <td>
-                        ${adminpro.price_product}/{adminpro.discount_product}%
+                        {formatCurrency(adminpro.price_product)}/
+                        {adminpro.discount_product}%
                       </td>
-                      {adminpro.status_product == 1 ? (
+                      {adminpro.status_product === 1 ? (
                         <>
                           <td>
                             <span
@@ -123,13 +168,15 @@ function ProductAdmin() {
                         <button className="detail">
                           <i className="fa-solid fa-pen-to-square"></i>
                         </button>
-                        <button className="delete-usr">
+                        <button
+                          className="delete-usr"
+                          onClick={() => handleDelete(adminpro.product_id)}
+                        >
                           <i className="fa-solid fa-trash-can del"></i>
                         </button>
                       </td>
                     </tr>
                   ))}
-
                   {/*  */}
                 </table>
               </div>
@@ -137,6 +184,20 @@ function ProductAdmin() {
           </div>
         </div>
       </div>
+
+      <Modal
+        className="confirm-modal"
+        isOpen={modalOpen}
+        onRequestClose={closeModal}
+        contentLabel="Confirm Delete"
+      >
+        <h3>Cảnh báo</h3>
+        <p>Bạn có chắc chắc muốn xoá sản phẩm?</p>
+        <div>
+          <button onClick={confirmDelete}>OK</button>
+          <button onClick={closeModal}>Cancel</button>
+        </div>
+      </Modal>
     </div>
   );
 }

@@ -16,7 +16,7 @@ function CategoriAdmin() {
               </span>
             </div>
             <div className="tag-name-usr">
-              <p className="name-tag">Categori</p>
+              <p className="name-tag">Options</p>
               <span className="application">View,Details,Delete</span>
             </div>
           </div>

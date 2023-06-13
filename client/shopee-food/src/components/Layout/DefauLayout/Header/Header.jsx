@@ -14,7 +14,6 @@ function Header() {
   const firstNavLinkRef = useRef(null);
   const navLinkContainerRef = useRef(null);
   const [apiCategory, setApiCategory] = useState([]);
-  const param = useParams();
 
   const getId = (id) => {
     // Gọi API
@@ -66,7 +65,7 @@ function Header() {
       <div className="inner">
         <div className="avatar">
           <NavLink to="/">
-            <a href="/">
+            <a href="">
               <img src={assImages.Avatar} alt="ShopeeFood" />
             </a>
           </NavLink>
@@ -77,6 +76,7 @@ function Header() {
         <div className="main-nav col" ref={navLinkContainerRef}>
           {nameFood.map((food, index) => (
             <NavLink
+              key={index}
               tabIndex={0}
               to={`/${food.category_id}`}
               onClick={() => getId(food.category_id)}
