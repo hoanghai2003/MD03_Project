@@ -7,7 +7,7 @@ const database = require("../Utils/database");
 cart.get("/", async (req, res) => {
   try {
     let data = await database.execute(
-      "SELECT p.product_id, quantity, price_ship, c.created_date, u.users_id ,p.img_product,p.name_product,p.price_product,p.address_product FROM carts as c join users as u on u.users_id = c.users_id join product as p on p.product_id=c.product_id "
+      "SELECT c.cart_id, p.product_id, quantity, price_ship, c.created_date, u.users_id ,p.img_product,p.name_product,p.price_product,p.address_product FROM carts as c join users as u on u.users_id = c.users_id join product as p on p.product_id=c.product_id "
     );
     let [user] = data;
     res.json({
@@ -24,7 +24,7 @@ cart.get("/users/:id", async (req, res) => {
   console.log(id);
   try {
     let data = await database.execute(
-      `SELECT p.product_id, c.quantity, c.price_ship, c.created_date, u.users_id, p.img_product, p.name_product, p.price_product, p.address_product
+      `SELECT c.status, c.cart_id, p.product_id, c.quantity, c.price_ship, c.created_date, u.users_id, p.img_product, p.name_product, p.price_product, p.address_product
       FROM carts AS c
       JOIN users AS u ON u.users_id = c.users_id
       JOIN product AS p ON p.product_id = c.product_id
@@ -44,7 +44,6 @@ cart.post("/post", async (req, res) => {
     );
 
     if (existingCartItem.length > 0) {
-      // Product already exists in the cart, increase the quantity by 1
       const updatedQuantity = existingCartItem[0].quantity + 1;
       await database.execute(
         `UPDATE carts SET quantity = ${updatedQuantity} WHERE product_id = ${product_id} AND users_id = ${users_id}`
@@ -54,13 +53,12 @@ cart.post("/post", async (req, res) => {
         message: "Số lượng tăng thành công",
       });
     } else {
-      // Product doesn't exist in the cart, add a new item
       await database.execute(
-        `INSERT INTO carts (product_id, quantity, users_id, created_date, price_ship) VALUES (${product_id}, ${quantity}, ${users_id}, '${created_date}', ${price_ship})`
+        `INSERT INTO carts (product_id, quantity, users_id, created_date, price_ship, status) VALUES (${product_id}, ${quantity}, ${users_id}, '${created_date}', ${price_ship},0)`
       );
       res.status(201).json({
         status: 201,
-        message: "Thêm món thành công ",
+        message: "Thêm món thành công",
       });
     }
   } catch (error) {
@@ -87,9 +85,53 @@ cart.get("/carts/:id", async (req, res) => {
 });
 
 //
-cart.put("/:id", (req, res) => {
+cart.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { quantity } = req.body;
+
   try {
-    res.json({ mess: "Update success" });
+    const result = await database.execute(
+      "UPDATE `products`.`carts` SET `quantity` = ? WHERE (`cart_id` = ?)",
+      [quantity, id]
+    );
+
+    if (result[0].affectedRows > 0) {
+      return res.status(200).json({
+        status: 200,
+        message: "Cập nhật sản phẩm thành công",
+      });
+    } else {
+      return res.status(404).json({
+        status: 404,
+        message: "Sản phẩm không tồn tại",
+      });
+    }
+  } catch (error) {
+    res.json(error);
+  }
+});
+//cap nhat trang thai
+cart.put("/status/:id", async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    const result = await database.execute(
+      "UPDATE `products`.`carts` SET `status` = ? WHERE (`cart_id` = ?);",
+      [status, id]
+    );
+
+    if (result[0].affectedRows > 0) {
+      return res.status(200).json({
+        status: 200,
+        message: "Cập nhật trạng thái thành công",
+      });
+    } else {
+      return res.status(404).json({
+        status: 404,
+        message: "Giỏ hàng không tồn tại để cập nhật",
+      });
+    }
   } catch (error) {
     res.json(error);
   }
@@ -97,15 +139,49 @@ cart.put("/:id", (req, res) => {
 //
 cart.delete("/:id", async (req, res) => {
   const cartId = req.params.id;
-
   try {
-    await database.execute(
-      "DELETE FROM `products`.`carts` WHERE (`cart_id` = ?) and (`users_id`=?)",
+    const result = await database.execute(
+      "DELETE FROM `products`.`carts` WHERE (`cart_id` = ?)",
       [cartId]
     );
-    res.json({ message: "Xóa thành công" });
+
+    if (result[0].affectedRows > 0) {
+      console.log(result);
+      res.status(200).json({
+        status: 200,
+        message: "Đã xoá sản phẩm khỏi giỏ hàng",
+      });
+    } else {
+      res.status(404).json({
+        status: 404,
+        message: "Sản phẩm không tồn tại trong giỏ hàng",
+      });
+    }
   } catch (error) {
     res.json(error);
+  }
+});
+
+cart.get("/confim/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [results] = await database.execute(
+      ` SELECT c.quantity, c.cart_id, c.product_id, c.price_ship, p.img_product, p.name_product,p.price_product,c.status
+      FROM carts AS c
+      JOIN product AS p ON p.product_id = c.product_id
+      WHERE c.status = 1 AND c.users_id ='${id}'`
+    );
+    res.status(200).json({
+      status: 200,
+      message: "Success",
+      data: results,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: 500,
+      message: "Internal server error",
+    });
   }
 });
 

@@ -1,55 +1,8 @@
 const express = require("express");
 const route = express.Router();
 const database = require("../Utils/database");
+
 const multer = require("multer");
-//   destination: function (req, file, cb) {
-//     cb(null, "../public/images");
-//   },
-//   filename: function (req, file, cb) {
-//     let ext = file.originalname.split(".")[1];
-//     const uniqueSuffix =
-//       Date.now() + "-" + Math.round(Math.random() * 1e9) + `.${ext}`;
-//     cb(null, file.fieldname + "-" + uniqueSuffix);
-//   },
-// });
-
-// const upload = multer({ storage: storage });
-
-// route.post("/upload", upload.single("images"), async (req, res) => {
-//   try {
-//     const {
-//       name_product,
-//       city,
-//       address_product,
-//       status_product,
-//       price_product,
-//       discount_product,
-//       shop_form,
-//       category_id,
-//     } = req.body;
-
-//     const insertProductQuery = `INSERT INTO products.product (name_product, city, address_product, status_product, price_product, discount_product, shop_form, category_id, img_product) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-
-//     const imagePath = `http://localhost:3003/images/${file.filename}`;
-//     console.log(imagePath);
-
-//     await database.execute(insertProductQuery, [
-//       imagePath,
-//       name_product,
-//       city,
-//       address_product,
-//       status_product,
-//       price_product,
-//       discount_product,
-//       shop_form,
-//       category_id,
-//     ]);
-
-//     res.json({ message: "Post success" });
-//   } catch (error) {
-//     res.json(error);
-//   }
-// });
 
 const fileStorage = multer.diskStorage({
   destination: (req, res, cb) => {
@@ -84,12 +37,13 @@ route.post("/single", (req, res) => {
           discount_product,
           shop_form,
           category_id,
+          delivery_time_id,
         } = req.body;
 
         const img_product = req.file.filename; // Lấy tên file ảnh đã tải lên
         const img_url = `http://localhost:3003/images/${img_product}`; // Đường link hoàn chỉnh của ảnh
         const insert =
-          "INSERT INTO `products`.`product` (`name_product`, `img_product`, `city`, `address_product`, `status_product`, `price_product`, `discount_product`, `shop_form`, `category_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+          "INSERT INTO `products`.`product` (`name_product`, `img_product`, `city`, `address_product`, `status_product`, `price_product`, `discount_product`, `shop_form`, `category_id`,`delivery_time_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 
         // Thực hiện lưu thông tin sản phẩm vào cơ sở dữ liệu
         await database.execute(insert, [
@@ -102,6 +56,7 @@ route.post("/single", (req, res) => {
           discount_product,
           shop_form,
           category_id,
+          delivery_time_id,
         ]);
 
         res.json({ message: "Post success" });
@@ -117,6 +72,18 @@ route.post("/single", (req, res) => {
 route.get("/", async (req, res) => {
   try {
     let data = await database.execute("SELECT * FROM products.product");
+    let [user] = data;
+    res.json({
+      status: "success",
+      user,
+    });
+  } catch (error) {
+    res.json(error);
+  }
+});
+route.get("/limit", async (req, res) => {
+  try {
+    let data = await database.execute("SELECT * FROM products.product LIMIT 2");
     let [user] = data;
     res.json({
       status: "success",
